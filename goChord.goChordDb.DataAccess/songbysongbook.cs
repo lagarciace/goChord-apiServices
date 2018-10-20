@@ -12,13 +12,13 @@ namespace goChord.goChordDb.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class songbysongbook
+    public partial class SongBySongbook
     {
         public int songsBySongbookId { get; set; }
         public int songbookId { get; set; }
         public int songId { get; set; }
     
-        public virtual song song { get; set; }
-        public virtual songbook songbook { get; set; }
+        public virtual Song Song { get; set; }
+        public virtual Songbook Songbook { get; set; }
     }
 }

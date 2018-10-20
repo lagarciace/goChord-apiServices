@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GoChordModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CategoriesBySong">
+          <Key>
+            <PropertyRef Name="categoriesBySongId" />
+          </Key>
+          <Property Name="categoriesBySongId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="songId" Type="int" Nullable="false" />
+          <Property Name="categoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Song">
+          <Key>
+            <PropertyRef Name="songId" />
+          </Key>
+          <Property Name="songId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="author" Type="varchar" MaxLength="100" />
+          <Property Name="songkey" Type="varchar" MaxLength="10" />
+          <Property Name="lyrics" Type="varchar(max)" />
+          <Property Name="chordpro" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Songbook">
+          <Key>
+            <PropertyRef Name="songbookId" />
+          </Key>
+          <Property Name="songbookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="500" />
+          <Property Name="version" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SongbookByUser">
+          <Key>
+            <PropertyRef Name="songbooksByUserId" />
+          </Key>
+          <Property Name="songbooksByUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="songbookId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SongBySongbook">
+          <Key>
+            <PropertyRef Name="songsBySongbookId" />
+          </Key>
+          <Property Name="songsBySongbookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="songbookId" Type="int" Nullable="false" />
+          <Property Name="songId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_categoriesBySong_category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoriesBySong" Type="Self.CategoriesBySong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="CategoriesBySong">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_categoriesBySong_song">
+          <End Role="Song" Type="Self.Song" Multiplicity="1" />
+          <End Role="CategoriesBySong" Type="Self.CategoriesBySong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Song">
+              <PropertyRef Name="songId" />
+            </Principal>
+            <Dependent Role="CategoriesBySong">
+              <PropertyRef Name="songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbookbyuser_songbook">
+          <End Role="Songbook" Type="Self.Songbook" Multiplicity="1" />
+          <End Role="SongbookByUser" Type="Self.SongbookByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Songbook">
+              <PropertyRef Name="songbookId" />
+            </Principal>
+            <Dependent Role="SongbookByUser">
+              <PropertyRef Name="songbookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbookbyuser_user">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SongbookByUser" Type="Self.SongbookByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="SongbookByUser">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbysongbook_song">
+          <End Role="Song" Type="Self.Song" Multiplicity="1" />
+          <End Role="SongBySongbook" Type="Self.SongBySongbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Song">
+              <PropertyRef Name="songId" />
+            </Principal>
+            <Dependent Role="SongBySongbook">
+              <PropertyRef Name="songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbysongbook_songbook">
+          <End Role="Songbook" Type="Self.Songbook" Multiplicity="1" />
+          <End Role="SongBySongbook" Type="Self.SongBySongbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Songbook">
+              <PropertyRef Name="songbookId" />
+            </Principal>
+            <Dependent Role="SongBySongbook">
+              <PropertyRef Name="songbookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GoChordModelStoreContainer">
+          <EntitySet Name="CategoriesBySong" EntityType="Self.CategoriesBySong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Song" EntityType="Self.Song" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Songbook" EntityType="Self.Songbook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SongbookByUser" EntityType="Self.SongbookByUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SongBySongbook" EntityType="Self.SongBySongbook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_categoriesBySong_category" Association="Self.FK_categoriesBySong_category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoriesBySong" EntitySet="CategoriesBySong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_categoriesBySong_song" Association="Self.FK_categoriesBySong_song">
+            <End Role="Song" EntitySet="Song" />
+            <End Role="CategoriesBySong" EntitySet="CategoriesBySong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbookbyuser_songbook" Association="Self.FK_songbookbyuser_songbook">
+            <End Role="Songbook" EntitySet="Songbook" />
+            <End Role="SongbookByUser" EntitySet="SongbookByUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbookbyuser_user" Association="Self.FK_songbookbyuser_user">
+            <End Role="User" EntitySet="User" />
+            <End Role="SongbookByUser" EntitySet="SongbookByUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbysongbook_song" Association="Self.FK_songbysongbook_song">
+            <End Role="Song" EntitySet="Song" />
+            <End Role="SongBySongbook" EntitySet="SongBySongbook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbysongbook_songbook" Association="Self.FK_songbysongbook_songbook">
+            <End Role="Songbook" EntitySet="Songbook" />
+            <End Role="SongBySongbook" EntitySet="SongBySongbook" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GoChordModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CategoriesBySong">
+          <Key>
+            <PropertyRef Name="categoriesBySongId" />
+          </Key>
+          <Property Name="categoriesBySongId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="songId" Type="Int32" Nullable="false" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_categoriesBySong_category" FromRole="CategoriesBySong" ToRole="Category" />
+          <NavigationProperty Name="Song" Relationship="Self.FK_categoriesBySong_song" FromRole="CategoriesBySong" ToRole="Song" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CategoriesBySong" Relationship="Self.FK_categoriesBySong_category" FromRole="Category" ToRole="CategoriesBySong" />
+        </EntityType>
+        <EntityType Name="Song">
+          <Key>
+            <PropertyRef Name="songId" />
+          </Key>
+          <Property Name="songId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="songkey" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="lyrics" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="chordpro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CategoriesBySong" Relationship="Self.FK_categoriesBySong_song" FromRole="Song" ToRole="CategoriesBySong" />
+          <NavigationProperty Name="SongBySongbook" Relationship="Self.FK_songbysongbook_song" FromRole="Song" ToRole="SongBySongbook" />
+        </EntityType>
+        <EntityType Name="Songbook">
+          <Key>
+            <PropertyRef Name="songbookId" />
+          </Key>
+          <Property Name="songbookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="version" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SongbookByUser" Relationship="Self.FK_songbookbyuser_songbook" FromRole="Songbook" ToRole="SongbookByUser" />
+          <NavigationProperty Name="SongBySongbook" Relationship="Self.FK_songbysongbook_songbook" FromRole="Songbook" ToRole="SongBySongbook" />
+        </EntityType>
+        <EntityType Name="SongbookByUser">
+          <Key>
+            <PropertyRef Name="songbooksByUserId" />
+          </Key>
+          <Property Name="songbooksByUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="songbookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Songbook" Relationship="Self.FK_songbookbyuser_songbook" FromRole="SongbookByUser" ToRole="Songbook" />
+          <NavigationProperty Name="User" Relationship="Self.FK_songbookbyuser_user" FromRole="SongbookByUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SongBySongbook">
+          <Key>
+            <PropertyRef Name="songsBySongbookId" />
+          </Key>
+          <Property Name="songsBySongbookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="songbookId" Type="Int32" Nullable="false" />
+          <Property Name="songId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Song" Relationship="Self.FK_songbysongbook_song" FromRole="SongBySongbook" ToRole="Song" />
+          <NavigationProperty Name="Songbook" Relationship="Self.FK_songbysongbook_songbook" FromRole="SongBySongbook" ToRole="Songbook" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SongbookByUser" Relationship="Self.FK_songbookbyuser_user" FromRole="User" ToRole="SongbookByUser" />
+        </EntityType>
+        <Association Name="FK_categoriesBySong_category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoriesBySong" Type="Self.CategoriesBySong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="CategoriesBySong">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_categoriesBySong_song">
+          <End Role="Song" Type="Self.Song" Multiplicity="1" />
+          <End Role="CategoriesBySong" Type="Self.CategoriesBySong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Song">
+              <PropertyRef Name="songId" />
+            </Principal>
+            <Dependent Role="CategoriesBySong">
+              <PropertyRef Name="songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbysongbook_song">
+          <End Role="Song" Type="Self.Song" Multiplicity="1" />
+          <End Role="SongBySongbook" Type="Self.SongBySongbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Song">
+              <PropertyRef Name="songId" />
+            </Principal>
+            <Dependent Role="SongBySongbook">
+              <PropertyRef Name="songId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbookbyuser_songbook">
+          <End Role="Songbook" Type="Self.Songbook" Multiplicity="1" />
+          <End Role="SongbookByUser" Type="Self.SongbookByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Songbook">
+              <PropertyRef Name="songbookId" />
+            </Principal>
+            <Dependent Role="SongbookByUser">
+              <PropertyRef Name="songbookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbysongbook_songbook">
+          <End Role="Songbook" Type="Self.Songbook" Multiplicity="1" />
+          <End Role="SongBySongbook" Type="Self.SongBySongbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Songbook">
+              <PropertyRef Name="songbookId" />
+            </Principal>
+            <Dependent Role="SongBySongbook">
+              <PropertyRef Name="songbookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_songbookbyuser_user">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SongbookByUser" Type="Self.SongbookByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="SongbookByUser">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GoChordContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategoriesBySong" EntityType="Self.CategoriesBySong" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Song" EntityType="Self.Song" />
+          <EntitySet Name="Songbook" EntityType="Self.Songbook" />
+          <EntitySet Name="SongbookByUser" EntityType="Self.SongbookByUser" />
+          <EntitySet Name="SongBySongbook" EntityType="Self.SongBySongbook" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_categoriesBySong_category" Association="Self.FK_categoriesBySong_category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoriesBySong" EntitySet="CategoriesBySong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_categoriesBySong_song" Association="Self.FK_categoriesBySong_song">
+            <End Role="Song" EntitySet="Song" />
+            <End Role="CategoriesBySong" EntitySet="CategoriesBySong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbysongbook_song" Association="Self.FK_songbysongbook_song">
+            <End Role="Song" EntitySet="Song" />
+            <End Role="SongBySongbook" EntitySet="SongBySongbook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbookbyuser_songbook" Association="Self.FK_songbookbyuser_songbook">
+            <End Role="Songbook" EntitySet="Songbook" />
+            <End Role="SongbookByUser" EntitySet="SongbookByUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbysongbook_songbook" Association="Self.FK_songbysongbook_songbook">
+            <End Role="Songbook" EntitySet="Songbook" />
+            <End Role="SongBySongbook" EntitySet="SongBySongbook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_songbookbyuser_user" Association="Self.FK_songbookbyuser_user">
+            <End Role="User" EntitySet="User" />
+            <End Role="SongbookByUser" EntitySet="SongbookByUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GoChordModelStoreContainer" CdmEntityContainer="GoChordContext">
+          <EntitySetMapping Name="CategoriesBySong">
+            <EntityTypeMapping TypeName="GoChordModel.CategoriesBySong">
+              <MappingFragment StoreEntitySet="CategoriesBySong">
+                <ScalarProperty Name="categoriesBySongId" ColumnName="categoriesBySongId" />
+                <ScalarProperty Name="songId" ColumnName="songId" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="GoChordModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Song">
+            <EntityTypeMapping TypeName="GoChordModel.Song">
+              <MappingFragment StoreEntitySet="Song">
+                <ScalarProperty Name="songId" ColumnName="songId" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="songkey" ColumnName="songkey" />
+                <ScalarProperty Name="lyrics" ColumnName="lyrics" />
+                <ScalarProperty Name="chordpro" ColumnName="chordpro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Songbook">
+            <EntityTypeMapping TypeName="GoChordModel.Songbook">
+              <MappingFragment StoreEntitySet="Songbook">
+                <ScalarProperty Name="songbookId" ColumnName="songbookId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="version" ColumnName="version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SongbookByUser">
+            <EntityTypeMapping TypeName="GoChordModel.SongbookByUser">
+              <MappingFragment StoreEntitySet="SongbookByUser">
+                <ScalarProperty Name="songbooksByUserId" ColumnName="songbooksByUserId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="songbookId" ColumnName="songbookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SongBySongbook">
+            <EntityTypeMapping TypeName="GoChordModel.SongBySongbook">
+              <MappingFragment StoreEntitySet="SongBySongbook">
+                <ScalarProperty Name="songsBySongbookId" ColumnName="songsBySongbookId" />
+                <ScalarProperty Name="songbookId" ColumnName="songbookId" />
+                <ScalarProperty Name="songId" ColumnName="songId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="GoChordModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

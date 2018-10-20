@@ -12,13 +12,13 @@ namespace goChord.goChordDb.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class songbook
+    public partial class Songbook
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public songbook()
+        public Songbook()
         {
-            this.songbookbyuser = new HashSet<songbookbyuser>();
-            this.songbysongbook = new HashSet<songbysongbook>();
+            this.SongbookByUser = new HashSet<SongbookByUser>();
+            this.SongBySongbook = new HashSet<SongBySongbook>();
         }
     
         public int songbookId { get; set; }
@@ -27,8 +27,8 @@ namespace goChord.goChordDb.DataAccess
         public string version { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<songbookbyuser> songbookbyuser { get; set; }
+        public virtual ICollection<SongbookByUser> SongbookByUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<songbysongbook> songbysongbook { get; set; }
+        public virtual ICollection<SongBySongbook> SongBySongbook { get; set; }
     }
 }

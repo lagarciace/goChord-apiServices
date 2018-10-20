@@ -50,62 +50,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="categoriesBySong.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="CategoriesBySong.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="category.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="Category.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Context.Context.cs">
+    <Compile Include="GoChordModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Context.Context.tt</DependentUpon>
+      <DependentUpon>GoChordModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Context.cs">
+    <Compile Include="GoChordModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Context.tt</DependentUpon>
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Context.Designer.cs">
+    <Compile Include="GoChordModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Context.edmx</DependentUpon>
+      <DependentUpon>GoChordModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="song.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="Song.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="songbook.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="Songbook.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="songbookbyuser.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="SongbookByUser.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="songbysongbook.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="SongBySongbook.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="user.cs">
-      <DependentUpon>Context.tt</DependentUpon>
+    <Compile Include="User.cs">
+      <DependentUpon>GoChordModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Context.edmx">
+    <EntityDeploy Include="GoChordModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Context.Designer.cs</LastGenOutput>
+      <LastGenOutput>GoChordModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Context.Context.tt">
+    <None Include="GoChordModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Context.edmx</DependentUpon>
-      <LastGenOutput>Context.Context.cs</LastGenOutput>
+      <DependentUpon>GoChordModel.edmx</DependentUpon>
+      <LastGenOutput>GoChordModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="Context.edmx.diagram">
-      <DependentUpon>Context.edmx</DependentUpon>
+    <None Include="GoChordModel.edmx.diagram">
+      <DependentUpon>GoChordModel.edmx</DependentUpon>
     </None>
-    <None Include="Context.tt">
+    <None Include="GoChordModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Context.edmx</DependentUpon>
-      <LastGenOutput>Context.cs</LastGenOutput>
+      <DependentUpon>GoChordModel.edmx</DependentUpon>
+      <LastGenOutput>GoChordModel.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

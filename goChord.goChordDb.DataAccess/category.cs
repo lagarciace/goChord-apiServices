@@ -12,18 +12,18 @@ namespace goChord.goChordDb.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class category
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public category()
+        public Category()
         {
-            this.categoriesBySong = new HashSet<categoriesBySong>();
+            this.CategoriesBySong = new HashSet<CategoriesBySong>();
         }
     
         public int categoryId { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<categoriesBySong> categoriesBySong { get; set; }
+        public virtual ICollection<CategoriesBySong> CategoriesBySong { get; set; }
     }
 }

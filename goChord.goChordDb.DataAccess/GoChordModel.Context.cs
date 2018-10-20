@@ -13,10 +13,10 @@ namespace goChord.goChordDb.DataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class gochordEntities : DbContext
+    public partial class GoChordContext : DbContext
     {
-        public gochordEntities()
-            : base("name=gochordEntities")
+        public GoChordContext()
+            : base("name=GoChordContext")
         {
         }
     
@@ -25,12 +25,12 @@ namespace goChord.goChordDb.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<song> song { get; set; }
-        public virtual DbSet<songbook> songbook { get; set; }
-        public virtual DbSet<songbookbyuser> songbookbyuser { get; set; }
-        public virtual DbSet<songbysongbook> songbysongbook { get; set; }
-        public virtual DbSet<user> user { get; set; }
-        public virtual DbSet<categoriesBySong> categoriesBySong { get; set; }
-        public virtual DbSet<category> category { get; set; }
+        public virtual DbSet<CategoriesBySong> CategoriesBySong { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Song> Song { get; set; }
+        public virtual DbSet<Songbook> Songbook { get; set; }
+        public virtual DbSet<SongbookByUser> SongbookByUser { get; set; }
+        public virtual DbSet<SongBySongbook> SongBySongbook { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }
